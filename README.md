@@ -33,6 +33,15 @@ npm run dev
 
 La app se levanta en `http://localhost:3000`.
 
+### Autenticación
+
+La aplicación requiere login para acceder. Credenciales por defecto:
+
+- **Usuario:** `admin`
+- **Contraseña:** `admin`
+
+> **Nota:** Esta autenticación es una implementación simplificada para desarrollo. En un entorno productivo se reemplazaría por un sistema completo con almacenamiento seguro de usuarios, hashing de contraseñas, refresh tokens, y gestión de sesiones adecuada.
+
 ### Build de producción
 
 ```bash
