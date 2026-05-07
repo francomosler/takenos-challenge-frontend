@@ -43,14 +43,13 @@ export function DrawBanner() {
       setCreateError(null);
       try {
         await createDraw();
-        await refresh();
+        window.location.reload();
       } catch (err) {
         if (err instanceof ApiError && err.status === 409) {
-          await refresh();
+          window.location.reload();
           return;
         }
         setCreateError(err instanceof Error ? err.message : "Error desconocido");
-      } finally {
         setCreating(false);
       }
     };

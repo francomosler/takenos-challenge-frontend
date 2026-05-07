@@ -36,10 +36,9 @@ export function DrawDashboardPage() {
     setDeleteError(null);
     try {
       await deleteDraw();
-      await refreshStatus();
+      window.location.reload();
     } catch (err) {
       setDeleteError(err instanceof Error ? err.message : "Error al eliminar");
-    } finally {
       setDeleting(false);
     }
   };
@@ -51,17 +50,6 @@ export function DrawDashboardPage() {
         subtitle="Estadísticas del sorteo actual y acciones administrativas."
         actions={
           <Group gap="xs">
-            <Button
-              size="xs"
-              variant="light"
-              leftSection={<IconRefresh size={14} />}
-              onClick={() => {
-                refresh();
-                void refreshStatus();
-              }}
-            >
-              Actualizar
-            </Button>
             {hasDraw && (
               <Button
                 size="xs"

@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { apiFetch, ApiError } from "../api/client";
+import { apiFetch } from "../api/client";
 
 type AuthState = {
   isAuthenticated: boolean | null;
@@ -24,15 +24,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const checkSession = useCallback(async () => {
+    if (typeof window !== "undefined" && window.location.pathname === "/login") {
+      setIsAuthenticated(false);
+      setLoading(false);
+      return;
+    }
     try {
       await apiFetch("/auth/me");
       setIsAuthenticated(true);
-    } catch (err) {
-      if (err instanceof ApiError && err.status === 401) {
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(false);
-      }
+    } catch {
+      setIsAuthenticated(false);
     } finally {
       setLoading(false);
     }

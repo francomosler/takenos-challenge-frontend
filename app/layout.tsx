@@ -1,5 +1,6 @@
 import "@mantine/core/styles.css";
 
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ColorSchemeScript } from "@mantine/core";
 import { Providers } from "./providers";
@@ -16,7 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ColorSchemeScript defaultColorScheme="light" />
       </head>
       <body>
-        <Providers>{children}</Providers>
+        <Suspense>
+          <Providers>{children}</Providers>
+        </Suspense>
       </body>
     </html>
   );

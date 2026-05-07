@@ -12,7 +12,6 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconLogout, IconTrophy } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { useAuth } from "../../context/AuthContext";
@@ -26,11 +25,10 @@ type Props = {
 export function AppLayout({ children }: Props) {
   const [opened, { toggle, close }] = useDisclosure(false);
   const { logout } = useAuth();
-  const router = useRouter();
 
   const handleLogout = async () => {
     await logout();
-    router.replace("/login");
+    window.location.href = "/login";
   };
 
   return (

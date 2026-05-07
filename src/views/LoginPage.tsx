@@ -12,13 +12,11 @@ import {
 } from "@mantine/core";
 import { IconLock, IconUser } from "@tabler/icons-react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
 
 export function LoginPage() {
   const { login } = useAuth();
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -31,14 +29,13 @@ export function LoginPage() {
 
     try {
       await login(username, password);
-      router.push("/matches");
+      window.location.href = "/matches";
     } catch (err) {
       if (err instanceof ApiError && err.status === 401) {
         setError("Credenciales incorrectas");
       } else {
         setError(err instanceof Error ? err.message : "Error de conexión");
       }
-    } finally {
       setLoading(false);
     }
   };
